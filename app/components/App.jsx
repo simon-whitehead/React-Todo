@@ -6,21 +6,12 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
 
+        let notes = [];
+        for (let i = 0; i < 30; i++)
+            notes.push({ id: uuid.v4(), task: 'Task #' + i.toString() });
+
         this.state = {
-            notes: [
-            {
-                id: uuid.v4(),
-                task: 'Learn Webpack'
-            },
-            {
-                id: uuid.v4(),
-                task: 'Learn React'
-            },
-            {
-                id: uuid.v4(),
-                task: 'Do laundry'
-            }
-            ]
+            notes: notes
         }
     }
 
