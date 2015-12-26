@@ -24,10 +24,23 @@ export default class App extends React.Component {
         }
     }
 
+    editNote = (id, task) => {
+        const notes = this.state.notes.map((note) => {
+            if (note.id === id)
+                note.task = task;
+
+            return note;
+        });
+
+        this.setState({notes});
+    }
+
     render() {
+        const {notes} = this.state;
+
         return (
           <div>
-            <NoteList items={notes} />
+            <NoteList items={notes} onNoteEdit={this.editNote} />
           </div>
         );
     }
