@@ -19,7 +19,10 @@ export default class NoteList extends React.Component {
     renderNote(note) {
 	return (
 		<li className="note" key={note.id}>
-			<Note task={note.task} onEdit={this.props.onNoteEdit.bind(null, note.id)} />
+			<Note 
+                        task={note.task} 
+                        onEdit={this.props.onNoteEdit.bind(null, note.id)} 
+                        onDelete={this.props.onNoteDelete.bind(null, note.id)} />
 		</li>
 	);
     }
