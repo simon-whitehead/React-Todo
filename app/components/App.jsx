@@ -6,12 +6,14 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
 
-        let notes = [];
-        for (let i = 0; i < 30; i++)
-            notes.push({ id: uuid.v4(), task: 'Task #' + i.toString() });
-
         this.state = {
-            notes: notes
+            notes: () => {
+                let notes = [];
+                for (let i = 0; i < 30; i++)
+                    notes.push({ id: uuid.v4(), task: 'Task #' + i.toString() });
+
+                return notes;
+            }()
         }
     }
 
@@ -36,12 +38,12 @@ export default class App extends React.Component {
         const {notes} = this.state;
 
         return (
-                <div>
+            <div>
                 <NoteList 
-                    items={notes} 
-                    onNoteEdit={this.editNote} 
-                    onNoteDelete={this.deleteNote} />
-                </div>
-               );
+                items={notes} 
+                onNoteEdit={this.editNote} 
+                onNoteDelete={this.deleteNote} />
+            </div>
+       );
     }
 }
