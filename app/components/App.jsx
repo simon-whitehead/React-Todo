@@ -1,45 +1,45 @@
 import uuid from 'node-uuid';
 import React from 'react';
-import NoteList from './NoteList.jsx';
-import NoteActions from '../actions/NoteActions';
-import NoteStore from '../stores/NoteStore';
+import TaskList from './TaskList.jsx';
+import TaskActions from '../actions/TaskActions';
+import TaskStore from '../stores/TaskStore';
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = NoteStore.getState();
+        this.state = TaskStore.getState();
     }
 
     componentDidMount() {
-        NoteStore.listen(this.storeChanged);
+        TaskStore.listen(this.storeChanged);
     }
 
     componentWillUnmount() {
-        NoteStore.unlisten(this.storeChanged);
+        TaskStore.unlisten(this.storeChanged);
     }
 
     storeChanged = (state) => {
         this.setState(state);
     }
 
-    editNote = (id, task) => {
-        NoteActions.update({id, task});
+    editTask = (id, task) => {
+        TaskActions.update({id, task});
     }
 
-    deleteNote = (id) => {
-        NoteActions.delete(id);
+    deleteTask = (id) => {
+        TaskActions.delete(id);
     }
 
     render() {
-        const {notes} = this.state;
+        const {tasks} = this.state;
 
         return (
             <div>
-                <NoteList 
-                items={notes} 
-                onNoteEdit={this.editNote} 
-                onNoteDelete={this.deleteNote} />
+                <TaskList 
+                items={tasks} 
+                onEditTask={this.editTask} 
+                onDeleteTask={this.deleteTask} />
             </div>
        );
     }
