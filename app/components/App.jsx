@@ -1,37 +1,34 @@
 import uuid from 'node-uuid';
 import React from 'react';
 import NoteList from './NoteList.jsx';
+import NoteActions from '../actions/NoteActions';
+import NoteStore from '../stores/NoteStore';
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            notes: () => {
-                let notes = [];
-                for (let i = 0; i < 30; i++)
-                    notes.push({ id: uuid.v4(), task: 'Task #' + i.toString() });
+        this.state = NoteStore.getState();
+    }
 
-                return notes;
-            }()
-        }
+    componentDidMount() {
+        NoteStore.listen(this.storeChanged);
+    }
+
+    componentWillUnmount() {
+        NoteStore.unlisten(this.storeChanged);
+    }
+
+    storeChanged = (state) => {
+        this.setState(state);
     }
 
     editNote = (id, task) => {
-        const notes = this.state.notes.map((note) => {
-            if (note.id === id)
-            note.task = task;
-
-        return note;
-        });
-
-        this.setState({notes});
+        NoteActions.update({id, task});
     }
 
     deleteNote = (id) => {
-        this.setState({
-            notes: this.state.notes.filter((note) => note.id !== id)
-        });
+        NoteActions.delete(id);
     }
 
     render() {
