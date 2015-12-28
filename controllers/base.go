@@ -4,6 +4,9 @@ import (
 	"log"
 	"net/http"
 	"text/template"
+
+	"github.com/boltdb/bolt"
+	"github.com/zenazn/goji/web"
 )
 
 var (
@@ -19,4 +22,8 @@ func renderView(n string, w http.ResponseWriter, model interface{}) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func Database(c *web.C) *bolt.DB {
+	return c.Env["Database"].(*bolt.DB)
 }

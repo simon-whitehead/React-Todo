@@ -15,6 +15,8 @@ func main() {
 
 	defer db.Close()
 
+	routeSetup()
+
 	// flag.Set("bind", ":other_port_here") - the default is 8000
 	goji.Serve()
 }
