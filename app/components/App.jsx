@@ -23,6 +23,10 @@ export default class App extends React.Component {
         this.setState(state);
     }
 
+    addTask = (task) => {
+        TaskActions.create({task});
+    }
+
     editTask = (id, task) => {
         TaskActions.update({id, task});
     }
@@ -38,6 +42,7 @@ export default class App extends React.Component {
             <div>
                 <TaskList 
                 items={tasks} 
+                onAddTask={this.addTask}
                 onEditTask={this.editTask} 
                 onDeleteTask={this.deleteTask} />
             </div>

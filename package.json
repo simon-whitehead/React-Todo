@@ -22,6 +22,7 @@
   "dependencies": {
     "alt": "^0.18.1",
     "alt-utils": "^1.0.0",
+    "jquery": "^2.1.4",
     "node-uuid": "^1.4.7",
     "react": "^0.14.3",
     "react-dom": "^0.14.3"

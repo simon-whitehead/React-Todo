@@ -10,9 +10,12 @@ export default class TaskList extends React.Component {
 	const tasks = this.props.items;
 
 	return (
-    	    <ul className="tasks">
-	        {tasks.map(this.renderNote, this)}
-	    </ul>
+            <div>
+                <button className="add-task" onClick={this.props.onAddTask.bind(null, "New Task")}>+</button>
+                <ul className="tasks">
+                    {tasks.map(this.renderNote, this)}
+                </ul>
+            </div>
 	);
     }
 
