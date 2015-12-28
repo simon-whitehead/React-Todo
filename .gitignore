@@ -2,3 +2,5 @@ node_modules/
 build/
 *.swp
 *.db
+*.log
+content/bundle.js
