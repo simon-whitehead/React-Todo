@@ -1,19 +1,8 @@
 package main
 
-import (
-	"net/http"
-
-	"github.com/simon-whitehead/react-todo/controllers"
-	"github.com/simon-whitehead/react-todo/views"
-	"github.com/zenazn/goji"
-)
+import "github.com/zenazn/goji"
 
 func main() {
-	views.Initialize()
-
-	http.Handle("/content/", http.StripPrefix("/content/", http.FileServer(http.Dir("content"))))
-
-	goji.Get("/", controllers.HomeIndexGET)
-
+	// flag.Set("bind", ":other_port_here") - the default is 8000
 	goji.Serve()
 }
