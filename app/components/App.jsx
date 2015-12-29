@@ -1,51 +1,58 @@
 import uuid from 'node-uuid';
 import React from 'react';
-import TaskList from './TaskList.jsx';
-import TaskActions from '../actions/TaskActions';
-import TaskStore from '../stores/TaskStore';
+import TaskList from './TaskList';
+import TaskListActions from '../actions/TaskListActions';
+import TaskListStore from '../stores/TaskListStore';
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = TaskStore.getState();
+        this.state = TaskListStore.getState();
     }
 
     componentDidMount() {
-        TaskStore.listen(this.storeChanged);
+        TaskListStore.listen(this.storeChanged);
     }
 
     componentWillUnmount() {
-        TaskStore.unlisten(this.storeChanged);
+        TaskListStore.unlisten(this.storeChanged);
     }
 
     storeChanged = (state) => {
         this.setState(state);
     }
 
-    addTask = (task) => {
-        TaskActions.create({task});
+    addList = () => {
+        TaskListActions.create({name: "New List"});
     }
 
-    editTask = (id, task) => {
-        TaskActions.update({id, task});
+    editList = (id, name) => {
+        TaskListActions.update({id, name});
     }
 
-    deleteTask = (id) => {
-        TaskActions.delete(id);
+    deleteList = (id) => {
+        TaskListActions.delete(id);
     }
 
     render() {
-        const {tasks} = this.state;
+        const {lists} = this.state;
 
         return (
             <div>
-                <TaskList 
-                items={tasks} 
-                onAddTask={this.addTask}
-                onEditTask={this.editTask} 
-                onDeleteTask={this.deleteTask} />
+                <button className="add-list" onClick={this.addList}>+ Add List</button>
+                <ul className="list-container">
+                    {lists.map(this.renderList, this)}
+                </ul>
             </div>
        );
+    }
+
+    renderList(list, i) {
+        return (
+            <li key={i}> 
+                <TaskList list={list} key={list.id} />
+            </li>
+        );
     }
 }

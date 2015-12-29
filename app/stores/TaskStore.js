@@ -10,16 +10,16 @@ class TaskStore {
 
         this.tasks = [];
     }
-    create(task) {
+    create({list, task}) {
         const tasks = this.tasks;
 
-        task.id = uuid.v4();
-
         this.setState({
-            tasks: tasks.concat(task)
+            tasks: tasks.concat({
+                id: uuid.v4(),
+                task: 'New task',
+                list_id: list.id
+            })
         });
-
-        $.post('/api/create-task', task);
     }
     update({id, task}) {
         const tasks = this.tasks.map((t) => {
@@ -36,6 +36,9 @@ class TaskStore {
         this.setState({
             tasks: this.tasks.filter((t) => t.id !== id)
         });
+    }
+    getTasksForList(list) {
+        return this.tasks.filter((t) => t.list_id === list.id);    
     }
 }
 

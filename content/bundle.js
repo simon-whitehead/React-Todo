@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a777cf445c37ed64f6ef"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7a6d46f07f67b0705bec"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20539,17 +20539,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TaskListJsx = __webpack_require__(187);
+	var _TaskList = __webpack_require__(187);
 
-	var _TaskListJsx2 = _interopRequireDefault(_TaskListJsx);
+	var _TaskList2 = _interopRequireDefault(_TaskList);
 
-	var _actionsTaskActions = __webpack_require__(189);
+	var _actionsTaskListActions = __webpack_require__(207);
 
-	var _actionsTaskActions2 = _interopRequireDefault(_actionsTaskActions);
+	var _actionsTaskListActions2 = _interopRequireDefault(_actionsTaskListActions);
 
-	var _storesTaskStore = __webpack_require__(204);
+	var _storesTaskListStore = __webpack_require__(206);
 
-	var _storesTaskStore2 = _interopRequireDefault(_storesTaskStore);
+	var _storesTaskListStore2 = _interopRequireDefault(_storesTaskListStore);
 
 	var App = (function (_React$Component) {
 	    _inherits(App, _React$Component);
@@ -20565,44 +20565,58 @@
 	            _this.setState(state);
 	        };
 
-	        this.addTask = function (task) {
-	            _actionsTaskActions2['default'].create({ task: task });
+	        this.addList = function () {
+	            _actionsTaskListActions2['default'].create({ name: "New List" });
 	        };
 
-	        this.editTask = function (id, task) {
-	            _actionsTaskActions2['default'].update({ id: id, task: task });
+	        this.editList = function (id, name) {
+	            _actionsTaskListActions2['default'].update({ id: id, name: name });
 	        };
 
-	        this.deleteTask = function (id) {
-	            _actionsTaskActions2['default']['delete'](id);
+	        this.deleteList = function (id) {
+	            _actionsTaskListActions2['default']['delete'](id);
 	        };
 
-	        this.state = _storesTaskStore2['default'].getState();
+	        this.state = _storesTaskListStore2['default'].getState();
 	    }
 
 	    _createClass(App, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            _storesTaskStore2['default'].listen(this.storeChanged);
+	            _storesTaskListStore2['default'].listen(this.storeChanged);
 	        }
 	    }, {
 	        key: 'componentWillUnmount',
 	        value: function componentWillUnmount() {
-	            _storesTaskStore2['default'].unlisten(this.storeChanged);
+	            _storesTaskListStore2['default'].unlisten(this.storeChanged);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var tasks = this.state.tasks;
+	            var lists = this.state.lists;
 
 	            return _react2['default'].createElement(
 	                'div',
 	                null,
-	                _react2['default'].createElement(_TaskListJsx2['default'], {
-	                    items: tasks,
-	                    onAddTask: this.addTask,
-	                    onEditTask: this.editTask,
-	                    onDeleteTask: this.deleteTask })
+	                _react2['default'].createElement(
+	                    'button',
+	                    { className: 'add-list', onClick: this.addList },
+	                    '+ Add List'
+	                ),
+	                _react2['default'].createElement(
+	                    'ul',
+	                    { className: 'list-container' },
+	                    lists.map(this.renderList, this)
+	                )
+	            );
+	        }
+	    }, {
+	        key: 'renderList',
+	        value: function renderList(list, i) {
+	            return _react2['default'].createElement(
+	                'li',
+	                { key: i },
+	                _react2['default'].createElement(_TaskList2['default'], { list: list, key: list.id })
 	            );
 	        }
 	    }]);
@@ -24696,27 +24710,81 @@
 
 	var _TaskJsx2 = _interopRequireDefault(_TaskJsx);
 
+	var _nodeUuid = __webpack_require__(164);
+
+	var _nodeUuid2 = _interopRequireDefault(_nodeUuid);
+
+	var _actionsTaskActions = __webpack_require__(189);
+
+	var _actionsTaskActions2 = _interopRequireDefault(_actionsTaskActions);
+
+	var _storesTaskStore = __webpack_require__(204);
+
+	var _storesTaskStore2 = _interopRequireDefault(_storesTaskStore);
+
+	var _storesTaskListStore = __webpack_require__(206);
+
+	var _storesTaskListStore2 = _interopRequireDefault(_storesTaskListStore);
+
 	var TaskList = (function (_React$Component) {
 	    _inherits(TaskList, _React$Component);
 
 	    function TaskList(props) {
+	        var _this = this;
+
 	        _classCallCheck(this, TaskList);
 
 	        _get(Object.getPrototypeOf(TaskList.prototype), "constructor", this).call(this, props);
+
+	        this.taskStoreChanged = function (state) {
+	            _this.setState(state);
+	        };
+
+	        this.addTask = function (list, task) {
+	            _actionsTaskActions2["default"].create({ list: list, task: task });
+	        };
+
+	        this.editTask = function (id, task) {
+	            _actionsTaskActions2["default"].update({ id: id, task: task });
+	        };
+
+	        this.deleteTask = function (id) {
+	            _actionsTaskActions2["default"]["delete"](id);
+	        };
+
+	        this.state = _storesTaskStore2["default"].getState();
 	    }
 
 	    _createClass(TaskList, [{
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            _storesTaskStore2["default"].listen(this.taskStoreChanged);
+	        }
+	    }, {
+	        key: "componentWillUnmount",
+	        value: function componentWillUnmount() {
+	            _storesTaskStore2["default"].unlisten(this.taskStoreChanged);
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
-	            var tasks = this.props.items;
+	            var list = this.props.list;
+	            var tasks = this.state.tasks.filter(function (t) {
+	                return t.list_id === list.id;
+	            });
 
 	            return _react2["default"].createElement(
 	                "div",
 	                null,
 	                _react2["default"].createElement(
+	                    "span",
+	                    { className: "list-name" },
+	                    list.name
+	                ),
+	                _react2["default"].createElement(
 	                    "button",
-	                    { className: "add-task", onClick: this.props.onAddTask.bind(null, "New Task") },
-	                    "+"
+	                    { className: "add-task", onClick: this.addTask.bind(null, list, "New Task") },
+	                    "+ Add Task"
 	                ),
 	                _react2["default"].createElement(
 	                    "ul",
@@ -24727,14 +24795,14 @@
 	        }
 	    }, {
 	        key: "renderNote",
-	        value: function renderNote(task) {
+	        value: function renderNote(task, i) {
 	            return _react2["default"].createElement(
 	                "li",
-	                { className: "task", key: task.id },
+	                { className: "task", key: i },
 	                _react2["default"].createElement(_TaskJsx2["default"], {
 	                    task: task.task,
-	                    onEditTask: this.props.onEditTask.bind(null, task.id),
-	                    onDeleteTask: this.props.onDeleteTask.bind(null, task.id) })
+	                    onEditTask: this.editTask.bind(null, task.id),
+	                    onDeleteTask: this.deleteTask.bind(null, task.id), key: task.id })
 	            );
 	        }
 	    }]);
@@ -26547,29 +26615,32 @@
 
 	    _createClass(TaskStore, [{
 	        key: 'create',
-	        value: function create(note) {
+	        value: function create(_ref) {
+	            var list = _ref.list;
+	            var task = _ref.task;
+
 	            var tasks = this.tasks;
 
-	            note.id = _nodeUuid2['default'].v4();
-
 	            this.setState({
-	                tasks: tasks.concat(note)
+	                tasks: tasks.concat({
+	                    id: _nodeUuid2['default'].v4(),
+	                    task: 'New task',
+	                    list_id: list.id
+	                })
 	            });
-
-	            $.post('/api/create-note', note);
 	        }
 	    }, {
 	        key: 'update',
-	        value: function update(_ref) {
-	            var id = _ref.id;
-	            var task = _ref.task;
+	        value: function update(_ref2) {
+	            var id = _ref2.id;
+	            var task = _ref2.task;
 
-	            var tasks = this.tasks.map(function (note) {
-	                if (note.id === id) {
-	                    note.task = task;
+	            var tasks = this.tasks.map(function (t) {
+	                if (t.id === id) {
+	                    t.task = task;
 	                }
 
-	                return note;
+	                return t;
 	            });
 
 	            this.setState({ tasks: tasks });
@@ -26578,9 +26649,16 @@
 	        key: 'delete',
 	        value: function _delete(id) {
 	            this.setState({
-	                tasks: this.tasks.filter(function (note) {
-	                    return note.id !== id;
+	                tasks: this.tasks.filter(function (t) {
+	                    return t.id !== id;
 	                })
+	            });
+	        }
+	    }, {
+	        key: 'getTasksForList',
+	        value: function getTasksForList(list) {
+	            return this.tasks.filter(function (t) {
+	                return t.list_id === list.id;
 	            });
 	        }
 	    }]);
@@ -35806,6 +35884,110 @@
 
 	}));
 
+
+/***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _nodeUuid = __webpack_require__(164);
+
+	var _nodeUuid2 = _interopRequireDefault(_nodeUuid);
+
+	var _libsAlt = __webpack_require__(190);
+
+	var _libsAlt2 = _interopRequireDefault(_libsAlt);
+
+	var _actionsTaskListActions = __webpack_require__(207);
+
+	var _actionsTaskListActions2 = _interopRequireDefault(_actionsTaskListActions);
+
+	var $ = __webpack_require__(205);
+
+	var TaskListStore = (function () {
+	    function TaskListStore() {
+	        _classCallCheck(this, TaskListStore);
+
+	        this.bindActions(_actionsTaskListActions2['default']);
+
+	        this.lists = [];
+	    }
+
+	    _createClass(TaskListStore, [{
+	        key: 'create',
+	        value: function create(list) {
+	            var lists = this.lists;
+
+	            list.id = _nodeUuid2['default'].v4();
+
+	            this.setState({
+	                lists: lists.concat(list)
+	            });
+
+	            // Persist the list here
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update(_ref) {
+	            var id = _ref.id;
+	            var name = _ref.name;
+
+	            var lists = this.lists.map(function (l) {
+	                if (l.id === id) {
+	                    l.name = name;
+	                }
+
+	                return l;
+	            });
+
+	            this.setState({ lists: lists });
+	        }
+	    }, {
+	        key: 'delete',
+	        value: function _delete(id) {
+	            this.setState({
+	                lists: this.lists.filter(function (l) {
+	                    return l.id !== id;
+	                })
+	            });
+	        }
+	    }]);
+
+	    return TaskListStore;
+	})();
+
+	exports['default'] = _libsAlt2['default'].createStore(TaskListStore, 'TaskListStore');
+	module.exports = exports['default'];
+
+/***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _libsAlt = __webpack_require__(190);
+
+	var _libsAlt2 = _interopRequireDefault(_libsAlt);
+
+	exports['default'] = _libsAlt2['default'].generateActions('create', 'update', 'delete');
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
