@@ -29,5 +29,12 @@ func getBoltDb() *bolt.DB {
 		return nil
 	}
 
+	// Create buckets
+
+	db.Update(func(tx *bolt.Tx) error {
+		_, err := tx.CreateBucketIfNotExists([]byte("Users"))
+		return err
+	})
+
 	return db
 }

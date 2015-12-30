@@ -1,0 +1,19 @@
+{{ define "body" }}
+
+    <form action="/login" method="POST">
+        <label for="email">Email:</label>
+        <input type="text" name="email" />
+        <label for="password">Password:</label>
+        <input type="password" name="password" />
+        <input type="submit" value="Log in" />
+    </form>
+
+    <form action="/account/create" method="POST">
+        <label for="email">Email:</label>
+        <input type="text" name="email" />
+        <label for="password">Password:</label>
+        <input type="password" name="password" />
+        <input type="submit" value="Create account" />
+    </form>
+
+{{ end }}
