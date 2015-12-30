@@ -10,15 +10,16 @@ import (
 )
 
 var (
-	templates *template.Template
+	templates map[string]*template.Template
 )
 
 func init() {
-	templates = template.Must(template.ParseFiles("./content/views/index.html"))
+	templates = make(map[string]*template.Template)
+	templates["index"] = template.Must(template.ParseFiles("./content/views/index.html", "./content/views/_base.html"))
 }
 
 func renderView(n string, w http.ResponseWriter, model interface{}) {
-	err := templates.ExecuteTemplate(w, n+".html", model)
+	err := templates[n].ExecuteTemplate(w, "base", model)
 	if err != nil {
 		log.Fatal(err)
 	}
