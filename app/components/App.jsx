@@ -1,5 +1,7 @@
-import uuid from 'node-uuid';
 import React from 'react';
+
+import uuid from 'node-uuid';
+
 import TaskList from './TaskList';
 import TaskListActions from '../actions/TaskListActions';
 import TaskListStore from '../stores/TaskListStore';
@@ -12,14 +14,14 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        TaskListStore.listen(this.storeChanged);
+        TaskListStore.listen(this.listStoreChanged);
     }
 
     componentWillUnmount() {
-        TaskListStore.unlisten(this.storeChanged);
+        TaskListStore.unlisten(this.listStoreChanged);
     }
 
-    storeChanged = (state) => {
+    listStoreChanged = (state) => {
         this.setState(state);
     }
 

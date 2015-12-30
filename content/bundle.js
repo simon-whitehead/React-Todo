@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7a6d46f07f67b0705bec"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "031183c534be1277afd1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20531,13 +20531,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _nodeUuid = __webpack_require__(164);
-
-	var _nodeUuid2 = _interopRequireDefault(_nodeUuid);
-
 	var _react = __webpack_require__(5);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _nodeUuid = __webpack_require__(164);
+
+	var _nodeUuid2 = _interopRequireDefault(_nodeUuid);
 
 	var _TaskList = __webpack_require__(187);
 
@@ -20561,7 +20561,7 @@
 
 	        _get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this, props);
 
-	        this.storeChanged = function (state) {
+	        this.listStoreChanged = function (state) {
 	            _this.setState(state);
 	        };
 
@@ -20583,12 +20583,12 @@
 	    _createClass(App, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            _storesTaskListStore2['default'].listen(this.storeChanged);
+	            _storesTaskListStore2['default'].listen(this.listStoreChanged);
 	        }
 	    }, {
 	        key: 'componentWillUnmount',
 	        value: function componentWillUnmount() {
-	            _storesTaskListStore2['default'].unlisten(this.storeChanged);
+	            _storesTaskListStore2['default'].unlisten(this.listStoreChanged);
 	        }
 	    }, {
 	        key: 'render',
