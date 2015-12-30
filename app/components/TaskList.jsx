@@ -2,6 +2,8 @@ import React from "react";
 
 import uuid from 'node-uuid';
 
+import Editable from './Editable';
+
 import Task from "./Task.jsx";
 import TaskActions from "../actions/TaskActions";
 
@@ -45,7 +47,7 @@ export default class TaskList extends React.Component {
 
 	return (
             <div>
-                <span className="list-name">{list.name}</span>
+                <Editable value={list.name} onEditCompleted={this.props.onEditListName.bind(null, list.id)} />
                 <button className="add-task" onClick={this.addTask.bind(null, list, "New Task")}>+ Add Task</button>
                 <ul className="tasks">
                     {tasks.map(this.renderNote, this)}

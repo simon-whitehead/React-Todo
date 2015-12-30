@@ -29,7 +29,7 @@ export default class App extends React.Component {
         TaskListActions.create({name: "New List"});
     }
 
-    editList = (id, name) => {
+    editListName = (id, name) => {
         TaskListActions.update({id, name});
     }
 
@@ -53,7 +53,7 @@ export default class App extends React.Component {
     renderList(list, i) {
         return (
             <li key={i}> 
-                <TaskList list={list} key={list.id} />
+                <TaskList list={list} key={list.id} onEditListName={this.editListName} />
             </li>
         );
     }

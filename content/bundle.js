@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "266eb9c427bdbee39fb3"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "561cfef531cef1c89759"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20569,7 +20569,7 @@
 	            _actionsTaskListActions2['default'].create({ name: "New List" });
 	        };
 
-	        this.editList = function (id, name) {
+	        this.editListName = function (id, name) {
 	            _actionsTaskListActions2['default'].update({ id: id, name: name });
 	        };
 
@@ -20616,7 +20616,7 @@
 	            return _react2['default'].createElement(
 	                'li',
 	                { key: i },
-	                _react2['default'].createElement(_TaskList2['default'], { list: list, key: list.id })
+	                _react2['default'].createElement(_TaskList2['default'], { list: list, key: list.id, onEditListName: this.editListName })
 	            );
 	        }
 	    }]);
@@ -24686,21 +24686,21 @@
 /* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var _react = __webpack_require__(5);
 
@@ -24710,7 +24710,11 @@
 
 	var _nodeUuid2 = _interopRequireDefault(_nodeUuid);
 
-	var _TaskJsx = __webpack_require__(188);
+	var _Editable = __webpack_require__(188);
+
+	var _Editable2 = _interopRequireDefault(_Editable);
+
+	var _TaskJsx = __webpack_require__(189);
 
 	var _TaskJsx2 = _interopRequireDefault(_TaskJsx);
 
@@ -24734,72 +24738,68 @@
 
 	        _classCallCheck(this, TaskList);
 
-	        _get(Object.getPrototypeOf(TaskList.prototype), "constructor", this).call(this, props);
+	        _get(Object.getPrototypeOf(TaskList.prototype), 'constructor', this).call(this, props);
 
 	        this.taskStoreChanged = function (state) {
 	            _this.setState(state);
 	        };
 
 	        this.addTask = function (list, task) {
-	            _actionsTaskActions2["default"].create({ list: list, task: task });
+	            _actionsTaskActions2['default'].create({ list: list, task: task });
 	        };
 
 	        this.editTask = function (id, task) {
-	            _actionsTaskActions2["default"].update({ id: id, task: task });
+	            _actionsTaskActions2['default'].update({ id: id, task: task });
 	        };
 
 	        this.deleteTask = function (id) {
-	            _actionsTaskActions2["default"]["delete"](id);
+	            _actionsTaskActions2['default']['delete'](id);
 	        };
 
-	        this.state = _storesTaskStore2["default"].getState();
+	        this.state = _storesTaskStore2['default'].getState();
 	    }
 
 	    _createClass(TaskList, [{
-	        key: "componentDidMount",
+	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            _storesTaskStore2["default"].listen(this.taskStoreChanged);
+	            _storesTaskStore2['default'].listen(this.taskStoreChanged);
 	        }
 	    }, {
-	        key: "componentWillUnmount",
+	        key: 'componentWillUnmount',
 	        value: function componentWillUnmount() {
-	            _storesTaskStore2["default"].unlisten(this.taskStoreChanged);
+	            _storesTaskStore2['default'].unlisten(this.taskStoreChanged);
 	        }
 	    }, {
-	        key: "render",
+	        key: 'render',
 	        value: function render() {
 	            var list = this.props.list;
 	            var tasks = this.state.tasks.filter(function (t) {
 	                return t.list_id === list.id;
 	            });
 
-	            return _react2["default"].createElement(
-	                "div",
+	            return _react2['default'].createElement(
+	                'div',
 	                null,
-	                _react2["default"].createElement(
-	                    "span",
-	                    { className: "list-name" },
-	                    list.name
+	                _react2['default'].createElement(_Editable2['default'], { value: list.name, onEditCompleted: this.props.onEditListName.bind(null, list.id) }),
+	                _react2['default'].createElement(
+	                    'button',
+	                    { className: 'add-task', onClick: this.addTask.bind(null, list, "New Task") },
+	                    '+ Add Task'
 	                ),
-	                _react2["default"].createElement(
-	                    "button",
-	                    { className: "add-task", onClick: this.addTask.bind(null, list, "New Task") },
-	                    "+ Add Task"
-	                ),
-	                _react2["default"].createElement(
-	                    "ul",
-	                    { className: "tasks" },
+	                _react2['default'].createElement(
+	                    'ul',
+	                    { className: 'tasks' },
 	                    tasks.map(this.renderNote, this)
 	                )
 	            );
 	        }
 	    }, {
-	        key: "renderNote",
+	        key: 'renderNote',
 	        value: function renderNote(task, i) {
-	            return _react2["default"].createElement(
-	                "li",
-	                { className: "task", key: i },
-	                _react2["default"].createElement(_TaskJsx2["default"], {
+	            return _react2['default'].createElement(
+	                'li',
+	                { className: 'task', key: i },
+	                _react2['default'].createElement(_TaskJsx2['default'], {
 	                    task: task.task,
 	                    onEditTask: this.editTask.bind(null, task.id),
 	                    onDeleteTask: this.deleteTask.bind(null, task.id), key: task.id })
@@ -24808,117 +24808,13 @@
 	    }]);
 
 	    return TaskList;
-	})(_react2["default"].Component);
-
-	exports["default"] = TaskList;
-	module.exports = exports["default"];
-
-/***/ },
-/* 188 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-					value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(5);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Editable = __webpack_require__(189);
-
-	var _Editable2 = _interopRequireDefault(_Editable);
-
-	var Task = (function (_React$Component) {
-					_inherits(Task, _React$Component);
-
-					function Task(props) {
-									var _this = this;
-
-									_classCallCheck(this, Task);
-
-									_get(Object.getPrototypeOf(Task.prototype), 'constructor', this).call(this, props);
-
-									this.renderEdit = function () {
-													return _react2['default'].createElement('input', { type: 'text',
-																	autoFocus: true,
-																	defaultValue: _this.props.task,
-																	onBlur: _this.finishEdit,
-																	onKeyPress: _this.checkEnter });
-									};
-
-									this.renderTask = function () {
-													var onDelete = _this.props.onDeleteTask;
-
-													return _react2['default'].createElement(
-																	'div',
-																	{ onClick: _this.edit },
-																	_react2['default'].createElement(
-																					'span',
-																					{ className: 'task' },
-																					_this.props.task
-																	),
-																	onDelete ? _this.renderDelete() : null
-													);
-									};
-
-									this.renderDelete = function () {
-													return _react2['default'].createElement(
-																	'button',
-																	{ className: 'delete', onClick: _this.props.onDeleteTask },
-																	'x'
-													);
-									};
-
-									this.finishEdit = function (value) {
-													_this.props.onEditTask(value);
-
-													_this.setState({
-																	editing: false
-													});
-									};
-
-									this.state = {
-													editing: false
-									};
-					}
-
-					_createClass(Task, [{
-									key: 'render',
-									value: function render() {
-													return _react2['default'].createElement(
-																	'div',
-																	{ className: 'task-title' },
-																	_react2['default'].createElement(_Editable2['default'], { value: this.props.task, onEditCompleted: this.finishEdit.bind(null) }),
-																	_react2['default'].createElement(
-																					'div',
-																					{ className: 'delete-task' },
-																					this.onDeleteTask ? this.renderDelete() : null
-																	)
-													);
-									}
-					}]);
-
-					return Task;
 	})(_react2['default'].Component);
 
-	exports['default'] = Task;
+	exports['default'] = TaskList;
 	module.exports = exports['default'];
 
 /***/ },
-/* 189 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25013,6 +24909,110 @@
 	})(_react2['default'].Component);
 
 	exports['default'] = Editable;
+	module.exports = exports['default'];
+
+/***/ },
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+					value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(5);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Editable = __webpack_require__(188);
+
+	var _Editable2 = _interopRequireDefault(_Editable);
+
+	var Task = (function (_React$Component) {
+					_inherits(Task, _React$Component);
+
+					function Task(props) {
+									var _this = this;
+
+									_classCallCheck(this, Task);
+
+									_get(Object.getPrototypeOf(Task.prototype), 'constructor', this).call(this, props);
+
+									this.renderEdit = function () {
+													return _react2['default'].createElement('input', { type: 'text',
+																	autoFocus: true,
+																	defaultValue: _this.props.task,
+																	onBlur: _this.finishEdit,
+																	onKeyPress: _this.checkEnter });
+									};
+
+									this.renderTask = function () {
+													var onDelete = _this.props.onDeleteTask;
+
+													return _react2['default'].createElement(
+																	'div',
+																	{ onClick: _this.edit },
+																	_react2['default'].createElement(
+																					'span',
+																					{ className: 'task' },
+																					_this.props.task
+																	),
+																	onDelete ? _this.renderDelete() : null
+													);
+									};
+
+									this.renderDelete = function () {
+													return _react2['default'].createElement(
+																	'button',
+																	{ className: 'delete', onClick: _this.props.onDeleteTask },
+																	'x'
+													);
+									};
+
+									this.finishEdit = function (value) {
+													_this.props.onEditTask(value);
+
+													_this.setState({
+																	editing: false
+													});
+									};
+
+									this.state = {
+													editing: false
+									};
+					}
+
+					_createClass(Task, [{
+									key: 'render',
+									value: function render() {
+													return _react2['default'].createElement(
+																	'div',
+																	{ className: 'task-title' },
+																	_react2['default'].createElement(_Editable2['default'], { value: this.props.task, onEditCompleted: this.finishEdit.bind(null) }),
+																	_react2['default'].createElement(
+																					'div',
+																					{ className: 'delete-task' },
+																					this.onDeleteTask ? this.renderDelete() : null
+																	)
+													);
+									}
+					}]);
+
+					return Task;
+	})(_react2['default'].Component);
+
+	exports['default'] = Task;
 	module.exports = exports['default'];
 
 /***/ },
