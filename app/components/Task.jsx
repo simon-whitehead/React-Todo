@@ -1,4 +1,5 @@
 import React from 'react';
+import Editable from './Editable';
 
 export default class Task extends React.Component {
     constructor(props) {
@@ -9,11 +10,14 @@ export default class Task extends React.Component {
 	};
     }
     render() {
-	if(this.state.editing) {
-	    return this.renderEdit();
-	}
-
-	return this.renderTask();
+        return (
+            <div className="task-title">
+                <Editable value={this.props.task} onEditCompleted={this.finishEdit.bind(null)} />
+                <div className="delete-task">
+                    {this.onDeleteTask ? this.renderDelete() : null}
+                </div>
+            </div>
+        );
     }
     renderEdit = () => {
 	return <input type="text"
@@ -35,18 +39,8 @@ export default class Task extends React.Component {
     renderDelete = () => {
 	return <button className="delete" onClick={this.props.onDeleteTask}>x</button>;
     }
-    edit = () => {
-	this.setState({
-	    editing: true
-	});
-    }
-    checkEnter = (e) => {
-	if(e.key === 'Enter') {
-	    this.finishEdit(e);
-	}
-    }
-    finishEdit = (e) => {
-	this.props.onEditTask(e.target.value);
+    finishEdit = (value) => {
+	this.props.onEditTask(value);
 
 	this.setState({
 	    editing: false

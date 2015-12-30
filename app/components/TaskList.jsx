@@ -1,8 +1,10 @@
 import React from "react";
-import Task from "./Task.jsx";
+
 import uuid from 'node-uuid';
 
+import Task from "./Task.jsx";
 import TaskActions from "../actions/TaskActions";
+
 import TaskStore from "../stores/TaskStore";
 import TaskListStore from "../stores/TaskListStore";
 
