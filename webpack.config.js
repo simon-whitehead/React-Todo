@@ -7,7 +7,7 @@ var defaultPlugins = [
 
 const PATHS = {
     app: path.join(__dirname, 'app'),
-    build: path.join(__dirname, 'content')
+    build: path.join(__dirname, 'app')
 };
 
 const PROD = JSON.parse(process.env.PROD || "0");

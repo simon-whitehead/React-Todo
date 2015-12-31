@@ -16,8 +16,9 @@ func RegisterPOST(c web.C, w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("email")
 	password := r.FormValue("password")
 
-	if u := c.Env["UserService"].(services.UserServicer).CreateUser(email, password); u != nil {
+	if _, err := c.Env["UserService"].(services.UserServicer).CreateUser(email, password); err == nil {
 		http.RedirectHandler("/login", http.StatusSeeOther).ServeHTTP(w, r)
+	} else {
+		renderView(c, "register", w, r, domain.NewAccountCreateVM(err))
 	}
-	renderView(c, "register", w, r, domain.NewAccountCreateVM("Email already in use"))
 }

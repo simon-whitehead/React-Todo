@@ -21,9 +21,9 @@ func init() {
 	templates = make(map[string]*template.Template)
 	setupFuncMap()
 
-	templates["index"] = template.Must(template.New("_base").Funcs(funcMap).ParseFiles("./content/views/_base.html", "./content/views/index.html"))
-	templates["register"] = template.Must(template.New("_base").Funcs(funcMap).ParseFiles("./content/views/_base.html", "./content/views/register.html"))
-	templates["login"] = template.Must(template.New("_base").Funcs(funcMap).ParseFiles("./content/views/_base.html", "./content/views/login.html"))
+	templates["index"] = template.Must(template.New("_base").Funcs(funcMap).ParseFiles("./views/_base.html", "./views/index.html"))
+	templates["register"] = template.Must(template.New("_base").Funcs(funcMap).ParseFiles("./views/_base.html", "./views/register.html"))
+	templates["login"] = template.Must(template.New("_base").Funcs(funcMap).ParseFiles("./views/_base.html", "./views/login.html"))
 }
 
 func renderView(c web.C, n string, w http.ResponseWriter, r *http.Request, model interface{}) {

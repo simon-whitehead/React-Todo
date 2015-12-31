@@ -12,7 +12,7 @@ import (
 
 func routeSetup() {
 	// Static files (including React code)
-	http.Handle("/content/", http.StripPrefix("/content/", http.FileServer(http.Dir("content"))))
+	http.Handle("/app/bundle.js", http.StripPrefix("/app/", http.FileServer(http.Dir("app"))))
 
 	// Every route requires the database and a few services
 	goji.Use(middleware.Database)
