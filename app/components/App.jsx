@@ -46,6 +46,7 @@ export default class App extends React.Component {
                 <ul className="list-container">
                     {lists.map(this.renderList, this)}
                 </ul>
+                <a href="/logout">Log out</a>
             </div>
        );
     }

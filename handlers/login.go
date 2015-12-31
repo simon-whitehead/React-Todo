@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/simon-whitehead/react-todo/domain"
 	"github.com/zenazn/goji/web"
 )
 
 func LoginIndexGET(c web.C, w http.ResponseWriter, r *http.Request) {
-	renderView("login", w, nil)
+	renderView(c, "login", w, r, domain.NewLoginVM())
 }
 
 func LoginIndexPOST(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -25,6 +26,6 @@ func LoginIndexPOST(c web.C, w http.ResponseWriter, r *http.Request) {
 
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	} else {
-		renderView("login", w, struct{ LoginErrors []interface{} }{LoginErrors: []interface{}{"Invalid username/password combination"}})
+		renderView(c, "login", w, r, domain.NewLoginVM("Invalid username/password combination"))
 	}
 }

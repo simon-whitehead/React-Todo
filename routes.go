@@ -27,12 +27,13 @@ func routeSetup() {
 	authorizedArea.Get("/", handlers.HomeIndexGET)
 
 	// Anyone can access login and logout
+	goji.Get("/register", handlers.RegisterGET)
+	goji.Post("/register", handlers.RegisterPOST)
+
 	goji.Get("/login", handlers.LoginIndexGET)
 	goji.Post("/login", handlers.LoginIndexPOST)
-	goji.Get("/logout", handlers.LogoutIndexGET)
 
-	// Anyone can register too
-	goji.Post("/account/create", handlers.AccountCreatePOST)
+	goji.Get("/logout", handlers.LogoutIndexGET)
 
 	goji.Handle("/", authorizedArea)
 }

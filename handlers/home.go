@@ -7,5 +7,5 @@ import (
 )
 
 func HomeIndexGET(c web.C, w http.ResponseWriter, r *http.Request) {
-	renderView("index", w, nil)
+	renderView(c, "index", w, r, nil)
 }

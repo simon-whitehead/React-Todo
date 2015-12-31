@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "561cfef531cef1c89759"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "de26840b96ab541e3fe4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20607,6 +20607,11 @@
 	                    'ul',
 	                    { className: 'list-container' },
 	                    lists.map(this.renderList, this)
+	                ),
+	                _react2['default'].createElement(
+	                    'a',
+	                    { href: '/logout' },
+	                    'Log out'
 	                )
 	            );
 	        }

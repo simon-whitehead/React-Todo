@@ -1,21 +1,20 @@
+
 {{ define "body" }}
 
     {{ if any .Model.Errors }}
         <ul class="error-list">
             {{ range $value := .Model.Errors }}
-                <li>{{ $value }}</li>
+                <li>{{ $value }}
             {{ end }}
         </ul>
     {{ end }}
-
-    <h2>Log in</h2>
-    <form action="/login" method="POST">
+    <h2>Register an account</h2>
+    <form action="/register" method="POST">
         <label for="email">Email:</label>
         <input type="text" name="email" />
         <label for="password">Password:</label>
         <input type="password" name="password" />
-        <input type="submit" value="Log in" />
+        <input type="submit" value="Create account" />
     </form>
 
-    <a href="/register">Create an account</a>
 {{ end }}

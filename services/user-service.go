@@ -26,6 +26,10 @@ func NewUserService(db *bolt.DB) UserServicer {
 }
 
 func (svc *UserService) CreateUser(email, password string) *domain.User {
+	if svc.GetUserByEmail(email) != nil {
+		return nil
+	}
+
 	var u *domain.User
 	// Create a new user in the Users bucket
 	svc.db.Update(func(tx *bolt.Tx) error {

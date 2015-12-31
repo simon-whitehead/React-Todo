@@ -22,11 +22,19 @@ func init() {
 	setupFuncMap()
 
 	templates["index"] = template.Must(template.New("_base").Funcs(funcMap).ParseFiles("./content/views/_base.html", "./content/views/index.html"))
+	templates["register"] = template.Must(template.New("_base").Funcs(funcMap).ParseFiles("./content/views/_base.html", "./content/views/register.html"))
 	templates["login"] = template.Must(template.New("_base").Funcs(funcMap).ParseFiles("./content/views/_base.html", "./content/views/login.html"))
 }
 
-func renderView(n string, w http.ResponseWriter, model interface{}) {
-	err := templates[n].ExecuteTemplate(w, "_base", model)
+func renderView(c web.C, n string, w http.ResponseWriter, r *http.Request, model interface{}) {
+	m := struct {
+		Model   interface{}
+		Flashes []interface{}
+	}{
+		Model:   model,
+		Flashes: Session(&c, r).Flashes(),
+	}
+	err := templates[n].ExecuteTemplate(w, "_base", m)
 	if err != nil {
 		log.Fatal(err)
 	}
