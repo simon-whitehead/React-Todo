@@ -14,19 +14,32 @@ import (
 
 var (
 	templates map[string]*template.Template
+	funcMap   template.FuncMap
 )
 
 func init() {
 	templates = make(map[string]*template.Template)
-	templates["index"] = template.Must(template.ParseFiles("./content/views/index.html", "./content/views/_base.html"))
-	templates["login"] = template.Must(template.ParseFiles("./content/views/login.html", "./content/views/_base.html"))
+	setupFuncMap()
+
+	templates["index"] = template.Must(template.New("_base").Funcs(funcMap).ParseFiles("./content/views/_base.html", "./content/views/index.html"))
+	templates["login"] = template.Must(template.New("_base").Funcs(funcMap).ParseFiles("./content/views/_base.html", "./content/views/login.html"))
 }
 
 func renderView(n string, w http.ResponseWriter, model interface{}) {
-	err := templates[n].ExecuteTemplate(w, "base", model)
+	err := templates[n].ExecuteTemplate(w, "_base", model)
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func setupFuncMap() {
+	funcMap = template.FuncMap{
+		"any": any,
+	}
+}
+
+func any(e []interface{}) bool {
+	return len(e) > 0
 }
 
 func Database(c web.C) *bolt.DB {

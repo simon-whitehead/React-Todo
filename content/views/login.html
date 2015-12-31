@@ -1,5 +1,12 @@
 {{ define "body" }}
 
+    {{ if any .LoginErrors }}
+        <ul class="error-list">
+            {{ range $value := .LoginErrors }}
+                <li>{{ $value }}</li>
+            {{ end }}
+        </ul>
+    {{ end }}
     <h2>Log in</h2>
     <form action="/login" method="POST">
         <label for="email">Email:</label>

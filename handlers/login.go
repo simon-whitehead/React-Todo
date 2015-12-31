@@ -25,6 +25,6 @@ func LoginIndexPOST(c web.C, w http.ResponseWriter, r *http.Request) {
 
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	} else {
-		renderView("login", w, struct{ errors string }{errors: "Invalid username/password combination"})
+		renderView("login", w, struct{ LoginErrors []interface{} }{LoginErrors: []interface{}{"Invalid username/password combination"}})
 	}
 }
